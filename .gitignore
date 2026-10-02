@@ -1,0 +1,8 @@
+node_modules
+*.env
+*.logs
+*.log
+*.csv
+package-lock.json
+logs
+.idea
