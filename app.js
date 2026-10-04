@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 
 const corsMiddleware = require('./common/middleware/cors');
 const app = express();
-
+app.use('/upload', express.static('upload'));
 // Add controllers 
 app.use(corsMiddleware.cors);
 app.use(cors());

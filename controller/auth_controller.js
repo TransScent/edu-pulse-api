@@ -10,14 +10,15 @@ const {edu_pulse_activity_log_query}=require('../queries/activity_log/edu_pulse_
 
 exports.edu_pulse_login= async (req,res)=>{
       try{
-        const {role,email,mobile_number,password}=req.body;
-        const [rows]=await db.execute(edu_pulse_login_query.USER_LOGIN,[role,email,mobile_number]);
+        const {role,email,password}=req.body;
+        const [rows]=await db.execute(edu_pulse_login_query.USER_LOGIN,[role,email]);
 
         if(rows.length===0){
             return res.status(401).json({"message":"Invalid Credentials"})
         }
         const user=rows[0];
-        if(!user.STATUS['Active']){
+        console.log(rows)
+        if(user.status!=='active'){
             return res.status(403).json({"message":"Account is deactivated. Please contact administrator."})
         }
         const isMatch=await bcrypt.compare(password,user.password_hash);
@@ -29,22 +30,24 @@ exports.edu_pulse_login= async (req,res)=>{
             name:user.name,
             email:user.email,
             role:user.role,
-            mobile:user.mobile_number,
+            // mobile:user.mobile_number,
             
         }
         const token=jwt.sign(tokenPayload,JWT_SECRET,{expiresIn:'10m'});
         res.json({
+            success:true,
             token,
             user:{
                 id:user.id,
                 name:user.name,
                 email:user.email,
+                password_hash:user.password_hash,
                 role:user.role,
                 status:user.status,
                 avatar:user.avatar,
                 createdAt:user.created_at,
-                mobile:user.mobile_number,
-                last_login:user.last_login
+                phone:user.phone,
+                lastLogin:user.last_login
 
             }
         })

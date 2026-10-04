@@ -1,5 +1,8 @@
 let edu_pulse_student_query={
-"register_student":"INSERT INTO teachers (role,email,mobile_number,firstName,middleName,lastName,gender,dob,bloodGroup,qualification,specialization,designation,experienceYears,joiningDate,employeeType,subjects,classesTaught,salary,schoolName,department,address,city,state,pincode,phone,alternatePhone,secondaryEmail,emergencyContactName,emergencyContactPhone,bankName,bankAccountNo,ifscCode,panNumber,aadharNumber) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+"NEXT_STUDENT_ID": "SELECT MAX(CAST(SUBSTRING_INDEX(ID, '-', -1) AS UNSIGNED)) AS LASTID FROM STUDENTS WHERE ID LIKE ?",
+"INSERT_STUDENT":"INSERT INTO STUDENTS (ID, ADMISSION_NO, ROLL_NO, FIRST_NAME, MIDDLE_NAME, LAST_NAME, GENDER, DOB, BLOOD_GROUP, ADDRESS, CITY, STATE, PINCODE, CONTACT_NUMBER, EMAIL, PHOTO_URL, NATIONAL_ID, SR_NUMBER, HEIGHT, WEIGHT, NATIONALITY, RELIGION, CATEGORY, STUDENT_PEN_NUMBER, SCHOOL_NAME, FATHER_NAME, FATHER_OCCUPATION, FATHER_PHONE, MOTHER_NAME, MOTHER_PHONE, BIRTH_CERTIFICATE_FILE, TRANSFER_CERTIFICATE_FILE, PREVIOUS_MARKSHEET_FILE, FATHER_AADHAR_FILE, MOTHER_AADHAR_FILE, ADMISSION_FORM_FILE, PREVIOUS_SCHOOL, ANY_DISABILITY, TRANSPORT_AREA, TRANSPORT_AMOUNT, ADMITTED_UNDER_RTE, EDIT_REMARKS, ACADEMIC_YEAR, ADMISSION_DATE, CLASS_ID, SECTION_ID, PARENT_ID, ACADEMIC_STATUS, ADDED_BY_ID, APPROVER_ID, CREATED_AT) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
+"NEXT_PARENT_ID":"SELECT MAX(CAST(SUBSTRING_INDEX(ID, '-', -1) AS UNSIGNED)) AS LASTID FROM PARENTS WHERE ID LIKE ?",
+"INSERT_PARENT":"INSERT INTO PARENTS (ID, PARENT_CODE, FULL_NAME, RELATION, OCCUPATION, EMAIL, PHONE, ADDRESS, CREATED_AT) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())"
 }
 
 module.exports={edu_pulse_student_query}
